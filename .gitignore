@@ -128,5 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Blacklist
 web_testing/results/
 .DS_Store
+selenium-screenshot*
+interactive_console_output.xml
+log.html
+output.xml
+report.html
