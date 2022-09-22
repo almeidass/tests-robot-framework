@@ -8,4 +8,4 @@ Converter Real Para Dolar
 *** Keywords ***
 Converter "${REAIS}" reais para dolar cotação "${COTACAO_DOLAR}"
     ${valor}=    Converter Moeda    ${REAIS}    ${COTACAO_DOLAR}
-    Log    ${valor}=
+    Log    ${valor}
