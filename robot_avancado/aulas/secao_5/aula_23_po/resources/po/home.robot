@@ -22,9 +22,9 @@ Adicionar o produto "${PRODUTO}" no carrinho
     Clicar no botão "Proceed to checkout"
 
 Acessar a página home do site
-    Go To               ${HOME_URL}
+    Go To                            ${HOME_URL}
     Wait Until Element Is Visible    ${HOME_TOPMENU}
-    Title Should Be     ${HOME_TITLE}
+    Title Should Be                  ${HOME_TITLE}
 
 Digitar o nome do produto "${PRODUTO}" no campo de pesquisa
     Input Text          ${HOME_FIELD_PESQUISAR}    ${PRODUTO}
