@@ -1,4 +1,7 @@
+
 robotframework==5.0.1
+robotframework-databaselibrary==1.2.4
+robotframework-difflibrary==0.1.0
 robotframework-faker==5.0.0
-robotframework-seleniumlibrary==6.0.0
 robotframework-requests==0.9.3
+robotframework-seleniumlibrary==6.0.0
