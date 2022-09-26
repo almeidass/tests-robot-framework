@@ -14,6 +14,10 @@ ${HOME_BTN_CHECKOUT}        xpath=//*[@id="layer_cart"]//a[@title="Proceed to ch
 ${HOME_BTN_SIGN_IN}         xpath://a[@class="login" and contains(text(), "Sign in")]
 
 *** Keywords ***
+#### Gherkin
+Dado que eu acesse home do site
+     Acessar a página home do site   
+
 #### Ações
 Adicionar o produto "${PRODUTO}" no carrinho
     Digitar o nome do produto "${PRODUTO}" no campo de pesquisa

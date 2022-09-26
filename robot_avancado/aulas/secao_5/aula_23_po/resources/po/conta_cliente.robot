@@ -1,12 +1,42 @@
 *** Settings ***
 Library    SeleniumLibrary
 Library    FakerLibrary    locale=pt_BR
+Resource   home.robot
 
 *** Variables ***
-${TEXT_FIELD_EMAIL}        xpath://input[@id="email_create"]
-${CREATE_ACCOUNT_BTN}      xpath://button[@id="SubmitCreate"]
+${TEXT_FIELD_EMAIL}              xpath://input[@id="email_create"]
+${CREATE_ACCOUNT_BTN}            xpath://button[@id="SubmitCreate"]
+${CONTAINER_ACCOUNT_CREATION}    xpath://div[@class="account_creation"]
+${RADIO_GENDER_1}                xpath://input[@id="id_gender1"]
+${TEXT_FIELD_FIRST_NAME}         xpath://input[@id="customer_firstname"]
+${TEXT_FIELD_LAST_NAME}          xpath://input[@id="customer_lastname"]
+${TEXT_FIELD_PASSWORD}           xpath://input[@id="passwd"]
+${SELECTION_DAY}                 xpath://select[@id="days"]
+${SELECTION_MONTH}               xpath://select[@id="months"]
+${SELECTION_YEAR}                xpath://select[@id="years"]
+${TEXT_FIELD_ADDRESS_1}          xpath://input[@id="address1"]
+${TEXT_FIELD_FIRST_CITY}         xpath://input[@id="city"]
+${TEXT_FIELD_FIRST_NAME}         xpath://input[@id="customer_firstname"]
+${SELECTION_STATE}               xpath://select[@id="id_state"]
+${TEXT_FIELD_POSTCODE}           xpath://input[@id="postcode"]
+${SELECTION_COUNTRY}             xpath://select[@id="id_country"]
+${TEXT_FIELD_PHONE_MOBILE}       xpath://input[@id="phone_mobile"]
+${BTN_SUBMIT_ACCOUNT}            xpath://button[@id="submitAccount"]
+${HEADING_MY_ACCOUNT}            xpath://h1[@class="page-heading" and contains(text(), "My account")]
+${TITLE_MY_ACCOUNT}              My account - My Store  
 
 *** Keywords ***
+#### Gherkin
+Quando eu realizo um cadastro válido
+    Clicar em "Sign in"
+    Informar um e-mail válido
+    Clicar em "Create an account"
+    Preencher os dados obrigatórios
+    Submeter cadastro
+    
+Então o cadastro deve realizado com sucesso
+    Conferir se o cadastro foi efetuado com sucesso
+
 #### Ações
 Informar um e-mail válido
     ${email_fake}                    FakerLibrary.Email
@@ -30,26 +60,26 @@ Preencher os dados obrigatórios
     ${cep}               Evaluate    random.randint(10000, 99999)    random
     ${phone_mobile}      FakerLibrary.Phone Number
 
-    Wait Until Element Is Visible    xpath://div[@class="account_creation"]    timeout=20s
-    Element Should Be Enabled        xpath://input[@id="id_gender1"]
-    Click Element                    xpath://input[@id="id_gender1"]
-    Input Text                       xpath://input[@id="customer_firstname"]    ${first_name}
-    Input Text                       xpath://input[@id="customer_lastname"]     ${last_name}
-    Input Text                       xpath://input[@id="passwd"]     ${password}
-    Select From List By Value        xpath://select[@id="days"]    ${dia_mes}
-    Select From List By Value        xpath://select[@id="months"]    ${mes}
-    Select From List By Value        xpath://select[@id="years"]    ${ano}
-    Input Text                       xpath://input[@id="address1"]    ${endereco}
-    Input Text                       xpath://input[@id="city"]    ${cidade}
-    Select From List By Value        xpath://select[@id="id_state"]    ${estado}
-    Input Text                       xpath://input[@id="postcode"]    ${cep}
-    Select From List By Index        xpath://select[@id="id_country"]    1
-    Input Text                       xpath://input[@id="phone_mobile"]    ${phone_mobile}
+    Wait Until Element Is Visible    ${CONTAINER_ACCOUNT_CREATION}   timeout=20s
+    Element Should Be Enabled        ${RADIO_GENDER_1}
+    Click Element                    ${RADIO_GENDER_1}
+    Input Text                       ${TEXT_FIELD_FIRST_NAME}        ${first_name}
+    Input Text                       ${TEXT_FIELD_LAST_NAME}         ${last_name}
+    Input Text                       ${TEXT_FIELD_PASSWORD}          ${password}
+    Select From List By Value        ${SELECTION_DAY}                ${dia_mes}
+    Select From List By Value        ${SELECTION_MONTH}              ${mes}
+    Select From List By Value        ${SELECTION_YEAR}               ${ano}
+    Input Text                       ${TEXT_FIELD_ADDRESS_1}         ${endereco}
+    Input Text                       ${TEXT_FIELD_FIRST_CITY}        ${cidade}
+    Select From List By Value        ${SELECTION_STATE}              ${estado}
+    Input Text                       ${TEXT_FIELD_POSTCODE}          ${cep}
+    Select From List By Index        ${SELECTION_COUNTRY}            1
+    Input Text                       ${TEXT_FIELD_PHONE_MOBILE}      ${phone_mobile}
 
 Submeter cadastro
-    Click Element    xpath://button[@id="submitAccount"]
+    Click Element    ${BTN_SUBMIT_ACCOUNT}
 
 Conferir se o cadastro foi efetuado com sucesso
-    Wait Until Element Is Visible    xpath://h1[@class="page-heading" and contains(text(), "My account")]
-    Title Should Be                  My account - My Store
+    Wait Until Element Is Visible    ${HEADING_MY_ACCOUNT}
+    Title Should Be                  ${TITLE_MY_ACCOUNT}
     Capture Page Screenshot
